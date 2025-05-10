@@ -16,22 +16,23 @@ class UserQuery:
     
     @staticmethod
     def login_with_git(payload:LoginWithGitSchema,db:Session):
-        user = db.query(User).filter(User.username == payload.username,User.password == str(hash(payload.id)),User.email == payload.email).first()
-        if user:
+        user = db.query(User).filter(User.username == payload.username,User.email == payload.email).first()
+        if user and verify_password(payload.id,user.password):
             data = JWTAccessToken.model_validate(user,from_attributes=True)
             jwt_token = create_access_token(data=data.model_dump())
             return (jwt_token,user)
-        user = User(
-            username=payload.username,
-            email=payload.email,
-            password=get_password_hash(password=payload.id)
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-        data = JWTAccessToken.model_validate(user,from_attributes=True)
-        jwt_token = create_access_token(data=data.model_dump())
-        return (jwt_token,user)
+        else:
+            user = User(
+                username=payload.username,
+                email=payload.email,
+                password=get_password_hash(password=payload.id)
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+            data = JWTAccessToken.model_validate(user,from_attributes=True)
+            jwt_token = create_access_token(data=data.model_dump())
+            return (jwt_token,user)
 
 
     @staticmethod

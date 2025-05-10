@@ -12,7 +12,7 @@ routes = APIRouter()
 
 @routes.get('/')
 def get_users(db:Session = Depends(get_db)):
-    return UserQuery.get_user(db=db)
+    return UserQuery.get_users(db=db)
 
 
 @routes.post('/')
