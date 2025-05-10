@@ -1,0 +1,4 @@
+frontent/node_modules
+frontent/.next
+backend/venv
+backend/.env
