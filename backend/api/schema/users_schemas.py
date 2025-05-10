@@ -12,6 +12,12 @@ class UserLoginSchema(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     password : str = Field(...,min_length=5,max_length=30)
 
+
+class LoginWithGitSchema(BaseModel):
+    username: str = Field(..., min_length=3, max_length=50)
+    id : str = Field(...,)
+    email : EmailStr
+
 class JWTAccessToken(BaseModel):
     username: str
     email: EmailStr
