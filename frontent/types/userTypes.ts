@@ -17,5 +17,6 @@ export type UserResponseSchema = {
 export type UserLoginWithGitSchema = {
     username: string,
     id: string,
-    email : string
+    email : string,
+    image:string,
 }

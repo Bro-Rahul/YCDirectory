@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import icons from '@/constants/icons'
 import StartUpCard from '@/components/utils/StartUpCard'
+import { getServerSession } from 'next-auth'
+import options from '@/app/api/auth/[...nextauth]/options'
 
 const ProfilePage = () => {
   return (
@@ -16,14 +17,15 @@ const ProfilePage = () => {
 
 export default ProfilePage
 
-const Profile = ()=>{
+const Profile = async()=>{
+    const session = await getServerSession(options)
     return (
         <div className='flex flex-col w-full h-fit items-center p-8 border-b-8 border-t-4 border-r-6 border-l-4 bg-[#EE2B69] border-black rounded-3xl relative'>
             <p className='absolute -top-5 w-[90%] rounded-2xl border-black text-center bg-white border-2 p-2 font-extrabold '>
                 NATHAN SMITH
             </p>
             <Image
-                src={icons.profileIcon}
+                src={session!.user.profile_picture}
                 alt='profile-picture'
                 width={200}
                 height={200}

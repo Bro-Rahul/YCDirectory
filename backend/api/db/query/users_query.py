@@ -25,7 +25,8 @@ class UserQuery:
             user = User(
                 username=payload.username,
                 email=payload.email,
-                password=get_password_hash(password=payload.id)
+                password=get_password_hash(password=payload.id),
+                profile_picture = payload.image
             )
             db.add(user)
             db.commit()

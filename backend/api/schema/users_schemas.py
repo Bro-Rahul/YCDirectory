@@ -17,6 +17,7 @@ class LoginWithGitSchema(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     id : str = Field(...,)
     email : EmailStr
+    image : Optional[str] = None
 
 class JWTAccessToken(BaseModel):
     username: str
@@ -25,6 +26,3 @@ class JWTAccessToken(BaseModel):
     id: int
     full_name: Optional[str] = None
     profile_picture: Optional[str] = None
-
-    class Config:
-        orm_mode = True
